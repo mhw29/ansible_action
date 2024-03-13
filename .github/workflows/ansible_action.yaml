@@ -35,7 +35,7 @@ jobs:
         echo "[webserver]" >> ~/ansible/hosts
         echo ${{ env.PUBLIC_IP }} >> ~/ansible/hosts
         chmod 600 ~/ansible/hosts
-        echo cat ~/ansible/hosts >> $GITHUB_OUTPUT
+        echo "::set-output name=ansible_hosts::$(cat ~/ansible/hosts)"
         ansible all -i ~/ansible/hosts -m ping -u ec2-user --private-key ~/.ssh/id_ed25519
 
     - name: Run Ansible playbook
