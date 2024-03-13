@@ -23,5 +23,4 @@ resource "github_actions_secret" "ssh_private_key" {
 
 module "aws" {
   source = "./aws"
-  my_ip = var.my_ip
 }

@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 # Create a security group
-resource "aws_security_group" "web_sg" {
-  name        = "web_sg"
+resource "aws_security_group" "web_sg_base" {
+  name        = "web_sg_base"
   description = "Security group for web server"
   
   ingress {
@@ -18,9 +18,9 @@ resource "aws_security_group" "web_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.my_ip]  # Replace "your_ip" with your public IP
+    cidr_blocks = ["0.0.0.0/0"]
   }
-
+  
   egress {
     from_port   = 0
     to_port     = 0
@@ -53,7 +53,7 @@ resource "aws_instance" "this" {
   ami                    = "ami-0f403e3180720dd7e" 
   instance_type          = "t3.micro"
   key_name               = aws_key_pair.this.key_name
-  security_groups        = [aws_security_group.web_sg.name]
+  security_groups        = [aws_security_group.web_sg_base.name]
   associate_public_ip_address = true
 
   tags = {
