@@ -50,8 +50,8 @@ resource "aws_key_pair" "this" {
 
 # Create the EC2 instance
 resource "aws_instance" "this" {
-  ami                    = "ami-0f403e3180720dd7e" 
-  instance_type          = "t3.micro"
+  ami                    = "ami-02d7fd1c2af6eead0" 
+  instance_type          = "t2.micro"
   key_name               = aws_key_pair.this.key_name
   security_groups        = [aws_security_group.web_sg_base.name]
   associate_public_ip_address = true
