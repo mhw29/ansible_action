@@ -27,8 +27,7 @@ jobs:
         mkdir ~/.ssh
         echo "${{ vars.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
-    - name: View Environment Variables
-      run: env
+
     - name: Configure ansible hosts
       run: |
         mkdir ~/ansible
@@ -36,8 +35,10 @@ jobs:
         echo "[webserver]" >> ~/ansible/hosts
         echo ${{ vars.PUBLIC_IP }} >> ~/ansible/hosts
         chmod 600 ~/ansible/hosts
-        echo "::set-output name=ansible_hosts::$(cat ~/ansible/hosts)"
         ansible all -i ~/ansible/hosts -m ping -u ec2-user --private-key ~/.ssh/id_ed25519
+
+    - name: See Contents of hosts file
+      run: cat ~/ansible/hosts
 
     - name: Run Ansible playbook
       run: |
