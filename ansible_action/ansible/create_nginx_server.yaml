@@ -1,6 +1,5 @@
 ---
 - name: Create Nginx server
-  hosts: ec2_instances
   remote_user: ec2-user
   become: true
   gather_facts: false
