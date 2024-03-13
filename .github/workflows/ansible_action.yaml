@@ -22,11 +22,12 @@ jobs:
       run: |
         pip install ansible
 
-    - name: Set up SSH key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Output SSH key to file
+      run: |
+        mkdir ~/.ssh
+        echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
     
     - name: Run Ansible playbook
       run: |
-        ansible-playbook -i ${{ secrets.PUBLIC_IP }}, ansible_action/ansible/create_nginx_server.yaml -u ec2-user --private-key $SSH_PRIVATE_KEY
+        ansible-playbook -i ${{ secrets.PUBLIC_IP }}, ansible_action/ansible/create_nginx_server.yaml -u ec2-user --private-key ~/.ssh/id_rsa
