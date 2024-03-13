@@ -1,7 +1,7 @@
 ---
 - name: Create Nginx server
   remote_user: ec2-user
-  hosts: all
+  hosts: webserver
   become: true
   gather_facts: false
   vars:
