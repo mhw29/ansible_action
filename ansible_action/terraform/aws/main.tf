@@ -56,6 +56,11 @@ resource "aws_instance" "this" {
   security_groups        = [aws_security_group.web_sg_base.name]
   associate_public_ip_address = true
 
+  user_data = <<-EOF
+            #!/bin/bash
+            sudo amazon-linux-extras install -y epel
+            EOF
+
   tags = {
     Name = "ansible_action"
   }
