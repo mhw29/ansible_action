@@ -39,6 +39,9 @@ jobs:
     - name: See Contents of hosts file
       run: cat ~/ansible/hosts
 
+    - name: See Contents of SSH key file
+      run: cat ~/.ssh/id_ed25519
+
     - name: Run Ansible playbook
       run: |
         ansible-playbook -i ~/ansible/hosts ansible_action/ansible/create_nginx_server.yaml -u ec2-user --private-key ~/.ssh/id_ed25519
