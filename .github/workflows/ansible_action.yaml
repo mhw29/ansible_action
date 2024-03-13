@@ -25,7 +25,7 @@ jobs:
     - name: Output SSH key to file
       run: |
         mkdir ~/.ssh
-        echo "${{ vars.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+        echo "${{ vars.SSH_PRIVATE_KEY }}" >> ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
     - name: View Environment Variables
       run: env
