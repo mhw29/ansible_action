@@ -36,6 +36,10 @@ jobs:
         echo ${{ vars.PUBLIC_IP }} >> ~/ansible/hosts
         chmod 600 ~/ansible/hosts
 
+    - name: Add Host Key to Known Hosts
+      run: |
+        ssh-keyscan -H ${{ vars.PUBLIC_IP }} >> ~/.ssh/known_hosts
+
     - name: See Contents of hosts file
       run: cat ~/ansible/hosts
 
