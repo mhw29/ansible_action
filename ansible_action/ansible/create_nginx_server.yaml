@@ -1,17 +1,12 @@
 ---
 - name: Create Nginx server
-  hosts: ec2_instances
   remote_user: ec2-user
+  hosts: webserver
   become: true
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - name: Install epel-release
-      yum:
-        name: epel-release
-        state: present
-
     - name: Install Nginx
       yum:
         name: nginx

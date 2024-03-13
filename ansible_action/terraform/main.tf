@@ -21,7 +21,18 @@ resource "github_actions_secret" "ssh_private_key" {
   plaintext_value  = file("~/.ssh/id_ed25519")
 }
 
+# resource "github_actions_variable" "public_ip" {
+#   repository       = github_repository.this.name
+#   variable_name    = "PUBLIC_IP"
+#   value            = module.aws.public_ip
+# }
+
+# resource "github_actions_variable" "ssh_private_key" {
+#   repository       = github_repository.this.name
+#   variable_name    = "SSH_PRIVATE_KEY"
+#   value            = file("~/.ssh/id_ed25519")
+# }
+
 module "aws" {
   source = "./aws"
-  my_ip = var.my_ip
 }
