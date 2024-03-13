@@ -32,7 +32,7 @@ jobs:
       run: |
         mkdir ~/ansible
         touch ~/ansible/hosts
-        echo ${{ secrets.PUBLIC_IP }} >> /etc/ansible/hosts
+        echo ${{ secrets.PUBLIC_IP }} >> ~/ansible/hosts
         ansible all -i -i ~/ansible/hosts -m ping -u ec2-user --private-key ~/.ssh/id_rsa
 
     - name: Run Ansible playbook
