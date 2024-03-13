@@ -1,0 +1,4 @@
+/ansible_action/terraform/.terraform.lock.hcl
+/ansible_action/terraform/terraform.tfstate
+/ansible_action/terraform/terraform.tfstate.backup
+/ansible_action/terraform/.terraform/*
