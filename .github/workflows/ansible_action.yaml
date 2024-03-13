@@ -1,8 +1,5 @@
 name: Deploy Nginx Server
 
-env:
-  GITHUB_ACTIONS_STEP_DEBUG: true
-
 on:
   push:
     branches:
@@ -21,11 +18,6 @@ jobs:
       with:
         python-version: '3.10'
 
-    - name: Debug Output
-      run: |
-        echo "Public IP: ${{ secrets.PUBLIC_IP }}"
-        echo "SSH Private Key: ${{ secrets.SSH_PRIVATE_KEY }}"
-
     - name: Install Ansible
       run: |
         pip install ansible
@@ -33,16 +25,14 @@ jobs:
     - name: Output SSH key to file
       run: |
         mkdir ~/.ssh
-        echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
+        echo "${{variables.SSH_PRIVATE_KEY}}" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
 
     - name: Configure ansible hosts
       run: |
         mkdir ~/ansible
         touch ~/ansible/hosts
-        echo ${{ secrets.PUBLIC_IP }} >> ~/ansible/hosts
-        cat ~/ansible/hosts
-        cat  ~/.ssh/id_ed25519
+        echo ${{ variables.PUBLIC_IP }} >> ~/ansible/hosts
         ansible all -i ~/ansible/hosts -m ping -u ec2-user --private-key ~/.ssh/id_ed25519
 
     - name: Run Ansible playbook
